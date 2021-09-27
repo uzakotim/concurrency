@@ -1,9 +1,7 @@
 #include <iostream>
 #include <thread>
+#include <linux/sched.h>
 #include <stdio.h>
-
-long int task_run[]={100, 450, 200};
-int task_stop[]={18, 25, 30};
 
 void task(int n)
 {
@@ -11,16 +9,17 @@ void task(int n)
 
         printf("Task %i has been started\n", n);
 
+        
+
         while (1)
         {
                 printf("task %d: running\n", n);
-                x = 1000000 * task_run[n];
+                x = 1000000;
                 while (x > 0) x--;
                 printf("task %d: stopped\n", n);
-                std::this_thread::sleep_for(std::chrono::milliseconds(task_stop[n]));
+                std::this_thread::sleep_for(std::chrono::milliseconds(1000));
         }
 }
-
 
 void CreateTasks(void)
 {
@@ -32,8 +31,6 @@ void CreateTasks(void)
         id2.join();
         id3.join();
 }
-
-
 
 int main()
 {
