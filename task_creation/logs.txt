@@ -1,0 +1,266 @@
+pid 8000's current scheduling policy: SCHED_FIFO
+pid 8000's current scheduling priority: 50
+timur@timur-XPS-15-9560:~/concurrency/task_creation$ ./main.o 
+Task 0 has been started
+task 0: running
+Task 2 has been started
+task 2: running
+Task 1 has been started
+task 1: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 0: stopped
+task 2: running
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 0: stopped
+task 2: running
+task 0: running
+task 1: stopped
+task 1: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 1: stopped
+task 1: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 1: stopped
+task 1: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+
+timur@timur-XPS-15-9560:~/concurrency/task_creation$ sudo chrt -r -p 50 8000
+timur@timur-XPS-15-9560:~/concurrency/task_creation$ chrt -p 8000
+pid 8000's current scheduling policy: SCHED_RR
+pid 8000's current scheduling priority: 50
+timur@timur-XPS-15-9560:~/concurrency/task_creation$ ./main.o 
+Task 0 has been started
+task 0: running
+Task 1 has been started
+task 1: running
+Task 2 has been started
+task 2: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 0: stopped
+task 2: running
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 0: stopped
+task 2: running
+task 0: running
+task 1: stopped
+task 1: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 1: stopped
+task 1: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 1: stopped
+task 1: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 1: stopped
+task 0: running
+task 1: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 1: stopped
+task 1: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 1: stopped
+task 2: running
+task 1: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+
+
+timur@timur-XPS-15-9560:~/concurrency/task_creation$ sudo chrt -o -p 0 8000
+timur@timur-XPS-15-9560:~/concurrency/task_creation$ chrt -p 8000
+pid 8000's current scheduling policy: SCHED_OTHER
+pid 8000's current scheduling priority: 0
+timur@timur-XPS-15-9560:~/concurrency/task_creation$ ./main.o 
+Task 0 has been started
+task 0: running
+Task 1 has been started
+task 1: running
+Task 2 has been started
+task 2: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 0: stopped
+task 0: running
+task 2: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 0: stopped
+task 2: running
+task 0: running
+task 1: stopped
+task 1: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 0: stopped
+task 2: running
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 0: stopped
+task 2: running
+task 0: running
+task 1: stopped
+task 1: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 1: stopped
+task 1: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 1: stopped
+task 1: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 1: stopped
+task 0: stopped
+task 0: running
+task 1: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+task 0: stopped
+task 0: running
+task 2: stopped
+task 2: running
+task 0: stopped
+task 0: running
+
+
