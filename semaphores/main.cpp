@@ -8,32 +8,47 @@ namespace diggers
         {       
                 while(1)
                 {       
-                        shovel.lock();
-                        std::cout<<"lower digger "<<id<<": working \n";
-                        std::this_thread::sleep_for(std::chrono::milliseconds(WORK_TIME));
-                        
-                        semSoilHeap.unlock();
-                        shovel.unlock();
+                        if(!semShovels.empty())
+                        {
+                                std::mutex* shovel = semShovels.top();
+                                semShovels.pop();
+                                shovel->lock();
+                                std::cout<<"lower digger "<<id<<": working \n";
+                                std::this_thread::sleep_for(std::chrono::milliseconds(WORK_TIME));
+                                shovel->unlock();
+                                semShovels.push(shovel);
+                                semSoilHeap.unlock();
+                        }
                         std::cout<<"lower digger "<<id<<": resting\n";
                         std::this_thread::sleep_for(std::chrono::milliseconds(BREAK_TIME));
-
                 }
         }
         void digger_upper(int id)
         {
                 while(1)
                 {
-                        if(semSoilHeap.try_lock())
-                        {       
-                                shovel.unlock();
-                                std::cout<<"upper digger "<<id<<": working \n";
-                                std::this_thread::sleep_for(std::chrono::milliseconds(WORK_TIME));
-                                semSoilHeap.unlock();
-                                shovel.unlock();
+                        // std::cout<<semSoilHeap.try_lock(); // 0 if locked ; 1 if unlocked ;
+                        if(semSoilHeap.try_lock()){
+                                if(!semShovels.empty())
+                                {
+                                        std::mutex* shovel = semShovels.top();
+                                        semShovels.pop();
+                                        shovel->lock();
+                                        std::cout<<"upper digger "<<id<<": working \n";
+                                        std::this_thread::sleep_for(std::chrono::milliseconds(WORK_TIME));
+                                        shovel->unlock();
+                                        semShovels.push(shovel);
+                                        
+                                } 
+                                else 
+                                {
+                                        std::cout<<"upper digger "<<id<<": resting\n";
+                                        std::this_thread::sleep_for(std::chrono::milliseconds(BREAK_TIME));   
+                                }
+                        } else { 
                                 std::cout<<"upper digger "<<id<<": resting\n";
                                 std::this_thread::sleep_for(std::chrono::milliseconds(BREAK_TIME));  
                         }
-                        
                 }
         }
         void create_lower_task(int id)
@@ -76,6 +91,17 @@ namespace diggers
                 int id_lower = 0;
                 int id_upper = 0;
                 bool deleted = false;
+
+                shovel1 = new std::mutex();
+                shovel2 = new std::mutex();
+                shovel3 = new std::mutex();
+                
+                semShovels.push(shovel1);
+                semShovels.push(shovel2);
+                semShovels.push(shovel3);
+
+                semSoilHeap.lock();
+
                 struct termios old_tio, new_tio;
                 unsigned char c;
 
