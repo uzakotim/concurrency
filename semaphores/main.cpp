@@ -87,9 +87,11 @@ namespace diggers
 
         void take_input()
         {
+                create_lower_task(0);
+                create_upper_task(0);
 
-                int id_lower = 0;
-                int id_upper = 0;
+                int id_lower = 1;
+                int id_upper = 1;
                 bool deleted = false;
 
                 shovel1 = new std::mutex();
@@ -179,9 +181,13 @@ namespace diggers
         }
 }
 
-
-int main()
-{       
+void CreateTasks()
+{
         std::thread id1(diggers::take_input);
         id1.join();
+}
+
+int main()
+{
+        CreateTasks();       
 }
