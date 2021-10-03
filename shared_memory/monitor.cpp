@@ -1,19 +1,11 @@
-#include <iostream>
-#include <sys/ipc.h>
-#include <sys/shm.h>
-#include <stdio.h>
-
 #include "main.h"
-#include <thread>
-
-#define INPUT_WAIT_TIME 100
 
 key_t key = ftok("/company",65);
 int shmid = shmget(key,1024,0644|IPC_CREAT); 
 struct company_registry* ptr = (company_registry *) shmat(shmid,(void*)0,0);
 
 
-void user_input()
+void userInput()
 {
     struct termios old_tio, new_tio;
     unsigned char c;
@@ -30,16 +22,21 @@ void user_input()
     /* set the new settings immediately */
     tcsetattr(STDIN_FILENO,TCSANOW,&new_tio);
 
-    do {
+    for(;;){
             c=getchar();
             printf("%c \n",c);
             std::this_thread::sleep_for(std::chrono::milliseconds(INPUT_WAIT_TIME));
-
-    } while((c!='q'));
-    shmdt(ptr);
-    shmctl(shmid,IPC_RMID,NULL);
-    /* restore the former settings */
-    tcsetattr(STDIN_FILENO,TCSANOW,&old_tio);
+            if (c == 'q')
+            {
+               shmdt(ptr);
+               shmctl(shmid,IPC_RMID,NULL);
+               /* restore the former settings */
+               tcsetattr(STDIN_FILENO,TCSANOW,&old_tio);
+               exit(0);
+            }
+    }
+    
+    
 }
 void monitorData()
 {
@@ -62,7 +59,7 @@ void monitorData()
 int main()
 {
     std::thread monitor(monitorData);
-    std::thread user_interface(user_input);
+    std::thread user_interface(userInput);
 
     monitor.join();
     user_interface.join();

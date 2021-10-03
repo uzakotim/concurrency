@@ -1,7 +1,7 @@
 #if !defined(MAIN_H)
 #define MAIN_H
 
-
+#define INPUT_WAIT_TIME 100
 #define MAX_NUMBER_OF_COMPANIES 50
 #define MAX_LEMGTH_OF_COMPANY_NAME 20
 #define MONITOR_WAIT_TIME 1000
@@ -10,23 +10,23 @@
 #define BREAK_TIME 50
 
 
+#include <errno.h>
+#include <fcntl.h>
 #include <iostream>
+#include <linux/input.h>
+#include <mutex>
+#include <pthread.h>
 #include <thread>
 #include <stdlib.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <linux/input.h>
-#include <termios.h>
-#include <vector>
-#include <pthread.h>
-#include <mutex>
-#include <queue>
 #include <stack>
 #include <sys/ipc.h>
 #include <sys/shm.h>
 #include <stdio.h>
 #include <string.h>
+#include <termios.h>
+#include <unistd.h>
+#include <vector>
+
 
 
 
@@ -62,4 +62,5 @@ namespace diggers
 
     void take_input();
 } // namespace diggers
+
 #endif //MAIN_H
