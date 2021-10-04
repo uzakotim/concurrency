@@ -46,7 +46,6 @@ namespace diggers
                                         shovel->unlock();
                                         semShovels.push(shovel);
 
-                                        semSoilHeap.unlock();
                                         ptr->companies[counter].work_done++;
                                         
                                 } 
